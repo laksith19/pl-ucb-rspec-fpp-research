@@ -10,6 +10,32 @@ describe 'Wallet Tests' do
             expect { Wallet.new(bad_amount) }.to raise_error(ArgumentError)
         end
     end
+
+    # these tests still need to be checked.
+    describe 'withdraw' do
+        before(:each) do
+            amount = 20
+            amount_to_remove = 10
+            wallet = Wallet.new(amount)
+        end
+        it 'should remove valid amount' do
+            wallet.withdraw(amount_to_remove)
+            expect( wallet.cash ).to eq(amount - amount_to_remove)
+            expect( wallet.error ).to be_falsy
+        end
+        it 'should not withdraw too much' do
+            wallet.withdraw(amount + 1)
+            expect( wallet.error ).to be_truthy
+            expect( wallet.cash ).to eq(amount)
+            # not_to change? check valid rspec matchers...
+        end
+        it 'should not withdraw negative money' do
+            wallet.withdraw(-1 * amount)
+            expect( wallet.error ).to be_truthy
+            expect( wallet.cash ).to eq(amount)
+        end
+    end
+    # extra tests...
     describe 'getter setter' do
         it 'should have cash set by constructor' do
             amount = 20
@@ -19,27 +45,6 @@ describe 'Wallet Tests' do
         it 'should not have a cash setter method' do
             wallet = Wallet.new(10)
             expect{ wallet.cash = 100 }.to raise_error(NoMethodError)
-        end
-    end
-    describe 'withdraw' do
-        it 'should remove valid amount' do
-            amount = 20
-            amount_to_remove = 10
-            wallet = Wallet.new(amount)
-            expect{ wallet.withdraw(amount_to_remove) }.not_to raise_error
-            expect(wallet.cash).to eq(amount - amount_to_remove)
-        end
-        it 'should not withdraw too much' do
-            amount = 20
-            wallet = Wallet.new(amount)
-            expect{ wallet.withdraw(amount + 1) }.to raise_error(InsufficientFundsError)
-            expect( wallet.cash ).to eq(amount)
-        end
-        it 'should not withdraw negative money' do
-            amount = 20
-            wallet = Wallet.new(amount)
-            expect{ wallet.withdraw(-1 * amount) }.to raise_error(ArgumentError)
-            expect( wallet.cash ).to eq(amount)
         end
     end
 end
