@@ -69,7 +69,7 @@ Armando will reach out via CS169 GSIs to see if interest.
 (todo) Fix Wallet class so that it raises error only when constructor gets
 negative value. Withdrawing too much should return falsy and capture the error somehow.
 
-Part 1:  develop tests for Wallet 
+(done) Part 1:  develop tests for Wallet [DONE - mv](https://github.com/ace-lab/pl-ucb-rspec-fpp-research/blob/main/questions/pl-faded-parsons-examples/paperkid/paperkid-wallet/app/spec/funcs_spec.rb)
 
 - test happy path of leaf function `withdraw`
 - test sad path - error string gets set, and balance does not change 
@@ -80,20 +80,25 @@ Part 1:  develop tests for Wallet
 ```ruby
 class Wallet
   attr_reader :cash
+  attr_reader :error
+
   def initialize(amount)
     raise ArgumentError if amount < 0
     @cash = amount
   end
   def withdraw(amount)
-    # raise InsufficientFundsError if amount > @cash
-    #  => return nil and have an error string attribute
+    if amount > @cash or amount < 0 
+      @error = 'invalid request'
+      return nil
+    end
     @cash -= amount
+    @error = nil
     return amount
   end
 end
 ```
 
-Part 2: Wallet code is replaced with rdoc-like description of Wallet,
+(todo) Part 2: Wallet code is replaced with rdoc-like description of Wallet,
 now we write tests for Customer.
 
 
