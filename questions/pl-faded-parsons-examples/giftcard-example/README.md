@@ -1,4 +1,35 @@
-# Intro to RSpec and TDD: Learning Goals
+# Instructor info:
+
+This nominally 2-part assigmnet starts by developing a handful of unit
+tests for pure leaf functions (constructor & public method of a very
+simple GiftCard class), then proceeds to introduce test doubles to
+develop unit tests for a Customer class that depends on the GiftCard
+class to make a purchase.
+
+Each of the 2 main parts is to be presented to the student in _phases_
+(or stages; we need a good word for this).  In stage N, they develop a
+very specific unit test (or maybe 2, if they're simple) in a
+vertically-laid-out FPP screen layout.  In stage
+N+1, the work they have completed in stage N becomes part of the
+static code displayed on the screen, and they develop new code in a
+vertically-laid-out FPP panel that is correctly inlined/interleaved
+with that static code.
+
+## Reference SUT and solution - will not be part of the student-visible scaffolding:
+
+* [system under test](questions/giftcard-example/gift_card.rb)
+* [reference test suite](questions/giftcard-example/gift_card_spec.rb)
+
+I'm using names like `gift_card_spec.1.rb`, `gift_card_spec.2.rb`, etc
+to show what i hope the UX looks like in each phase.  In those files,
+I separate into "regions" the parts that should be static text
+displayed to the student vs the part that should be the FPP panel.
+The end-of-line comment `## SC` means scaffolding (starter code, ie
+this line is given in its correct place in the FPP panel).
+
+# STUDENT-FACING INSTRUCTIONS START HERE
+
+## Intro to RSpec and TDD: Learning Goals
 
 This assignment introduces unit test writing with RSpec.  Rather than
 writing code from scratch, you will solve Faded Parsons Problems, in
@@ -47,14 +78,11 @@ Arrange and/or Act steps.
 
 ## Pre-work
 
-(prior to this point, students should have done a bunch of finger
-exercises on simple leaf function tests)
-
 TBD: For the micropilot, they would review some existing material and take
 a pre-test.  (Question - should the pretest be sequenced before or
 after the finger exercises? Would be interesting to try both.)
 
-# Background
+## Background
 
 Your app manages online gift cards for a soon-to-be-major e-tailer.
 Customers can use the app to place orders using their card
@@ -86,11 +114,6 @@ try to buy an item.
 balance goes down
 * If not, the item is not bought, a helpful error message saves the
 reason why, and the card balance doesn't change.
-
-# Reference SUT and solution - will not be part of the student-visible scaffolding:
-
-* [system under test](questions/giftcard-example/giftcard.rb)
-* [reference test suite](questions/giftcard-example/giftcard_spec.rb)
 
 
 # Part 1: testing the GiftCard class
