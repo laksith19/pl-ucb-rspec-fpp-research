@@ -87,7 +87,12 @@ balance goes down
 * If not, the item is not bought, a helpful error message saves the
 reason why, and the card balance doesn't change.
 
-# Part 1: testing the GiftCard class
+# Reference SUT and solution - will not be part of the student-visible scaffolding:
 
+* [system under test](questions/giftcard-example/giftcard.rb)
+* [reference test suite](questions/giftcard-example/giftcard_spec.rb)
+
+
+# Part 1: testing the GiftCard class
 
 # Part 2: testing the Customer class
