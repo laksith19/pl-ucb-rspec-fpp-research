@@ -66,10 +66,12 @@ Armando will reach out via CS169 GSIs to see if interest.
 
 ## Exercise sequence
 
+Note: all development below is within the paperkid-wallet directory. It's getting too cumbersome to separate (and synchronize) the steps of the exercise sequence across the different paperkid directories. -mv 
+
 (todo) Fix Wallet class so that it raises error only when constructor gets
 negative value. Withdrawing too much should return falsy and capture the error somehow.
 
-(done) Part 1:  develop tests for Wallet [DONE - mv](https://github.com/ace-lab/pl-ucb-rspec-fpp-research/blob/main/questions/pl-faded-parsons-examples/paperkid/paperkid-wallet/app/spec/funcs_spec.rb)
+(done) Part 1:  develop [tests for Wallet (DONE - mv)](https://github.com/ace-lab/pl-ucb-rspec-fpp-research/blob/main/questions/pl-faded-parsons-examples/paperkid/paperkid-wallet/app/spec/funcs_spec.rb)
 
 - test happy path of leaf function `withdraw`
 - test sad path - error string gets set, and balance does not change 
@@ -98,30 +100,39 @@ class Wallet
 end
 ```
 
-(todo) Part 2: Wallet code is replaced with rdoc-like description of Wallet,
-now we write tests for Customer.
+(done) Part 2: Wallet code is replaced with [rdoc-like description of Wallet](https://github.com/ace-lab/pl-ucb-rspec-fpp-research/blob/main/questions/pl-faded-parsons-examples/paperkid/paperkid-wallet/app/funcs.rb),
+now we write [tests for Customer (done, scroll down)](https://github.com/ace-lab/pl-ucb-rspec-fpp-research/blob/main/questions/pl-faded-parsons-examples/paperkid/paperkid-wallet/app/spec/funcs_spec.rb)
 
 
 attempt_delivery motivates the use of a method stub (to force a return value from
 Wallet#withdraw, whose implementation is now invisible) and also checking whether
-Customer#deliver_paper gets called or not.  And you can have a separate spec to then
-check that Wallet#cash has changed to the right value as a result.
-Or even something like
-`expect { Customer.attempt_delivery(amt) }.to change { Customer.wallet.cash }.by(amount)`
+Customer#deliver_paper gets called or not.  ~~And you can have a separate spec to then
+check that Wallet#cash has changed to the right value as a result.~~ (as we are stubbing
+Wallet#withdraw, checking (and maintaining) the @cash on the test double essentially recreates Wallet.)
+~~Or even something like
+`expect { Customer.attempt_delivery(amt) }.to change { Customer.wallet.cash }.by(amount)`~~
+New: `@error` string instance variable to test object state after delivery attempt.
+New: instance method called for successful deliveries, which clears error string if set.
+New: `amount` parameter for Customer#attempt_delivery replaced with `@rate` instance variable
 
 ```ruby
 class Customer
-  def initialize(wallet)
+  attr_reader :error
+  def initialize(wallet, rate)
     @wallet = wallet
+    @rate = rate
     @error = ''
   end
-  def attempt_delivery(amount)
-    if @wallet.withdraw(amount)
-      self.deliver_paper
+  def attempt_delivery
+    if @wallet.withdraw(@rate)
+      deliver_paper()
     else
       @error = "Not enough money"
     end
-  end      
+  end
+  def deliver_paper
+    @error = ''
+  end
 end
 ```
 

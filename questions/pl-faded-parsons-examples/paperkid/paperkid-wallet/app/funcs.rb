@@ -40,4 +40,25 @@ class Wallet
 end
 
 
-  
+  # idea - do we want to make multiple class files?
+  # should we include Customer (new version) in this
+  # file? 
+
+class Customer
+  attr_reader :error
+  def initialize(wallet, rate)
+    @wallet = wallet
+    @rate = rate
+    @error = ''
+  end
+  def attempt_delivery
+    if @wallet.withdraw(@rate)
+      deliver_paper()
+    else
+      @error = "Not enough money"
+    end
+  end
+  def deliver_paper
+    @error = ''
+  end
+end
