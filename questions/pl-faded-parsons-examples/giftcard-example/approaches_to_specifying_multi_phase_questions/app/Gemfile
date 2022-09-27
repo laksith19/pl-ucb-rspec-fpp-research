@@ -1,0 +1,4 @@
+source 'www.rubygems.org'
+
+gem 'rspec'
+gem 'json'
