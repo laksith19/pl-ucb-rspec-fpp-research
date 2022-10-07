@@ -1,0 +1,71 @@
+submit_to: spec/gift_card_spec.rb
+prompt: |
+  Your app manages online gift cards for a soon-to-be-major e-tailer.
+  Customers can use the app to place orders using their card
+  balance. 
+
+  We have classes that model the GiftCard and the Customer.  First you
+  will write tests for the GiftCard class, to verify that:
+
+  * a GiftCard when first created has a non-negative cash balance
+  * a withdrawal when there is enough cash returns success, and changes
+  the card balance
+  * a withdrawal when there is not enough cash returns failure, provides
+  an error message explaining the failure, and does not change the card balance.
+phase_prompts: 
+  - |
+     
+  - |
+    The provided code before the submission box is semantically equivalent to the 
+    code you wrote previously, but take note that we have chosen to separate it 
+    logically by putting it into a `describe` block.
+  - | 
+    Now, we would like to DRY out our code by using the `before(:each)` block.
+solution: |
+  describe GiftCard do # pre-text 0,1,2
+    describe 'creating' do # pre-text 1,2
+    it 'fails with negative balance' do # code-line 0 # pre-text 1+1,2+1
+      expect { GiftCard.new(-1) }.to raise_error(ArgumentError) # code-line 0 # pre-text 1+1,2+1
+    end # code-line 0 # pre-text 1+1,2+1
+    it 'succeeds with positive balance' do # code-line 0 # pre-text 1+1,2+1
+      gift_card = GiftCard.new(20) # code-line 0 # pre-text 1+1,2+1
+      expect(gift_card.balance).to eq(20) # code-line 0 # pre-text 1+1,2+1
+    end # code-line 0 # pre-text 1+1,2+1
+    end # pre-text 1,2
+    describe 'withdrawing with sufficient balance' do # pre-text 1,2
+      before(:each) do #given0 # code-line 2
+        @gift_card = GiftCard.new(20) # code-line 2
+        @result = @gift_card.withdraw(15) # code-line 2
+      end # code-line 2
+      it 'returns truthy value' do # code-line 1,2
+        @gift_card = GiftCard.new(20) # code-line 1
+        @result = @gift_card.withdraw(15) # code-line 1
+        expect(@result).to be_truthy # code-line 1,2
+      end # code-line 1,2
+      it 'changes the balance' do # code-line 1,2
+        @gift_card = GiftCard.new(20) # code-line 1
+        @result = @gift_card.withdraw(15) # code-line 1
+        expect(@gift_card.balance).to eq(5) # code-line 1,2
+      end # code-line 1,2
+      it 'does not result in error message' do # code-line 1,2
+        @gift_card = GiftCard.new(20) # code-line 1
+        @result = @gift_card.withdraw(15) # code-line 1
+        expect(@gift_card.error).to be_empty # code-line 1,2
+      end # code-line 1,2
+    end # post-text 1,2
+  end # post-text 0,1,2
+mutations:
+  var_1:
+    used_in: [0, 1, 2]
+    funcs.rb: |
+      3c3
+      <     
+      ---
+      >     
+  var_2:
+    used_in: [1, 2]
+    funcs.rb: |
+      3c3
+      <     
+      ---
+      >     
