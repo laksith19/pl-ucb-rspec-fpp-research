@@ -15,12 +15,3 @@ class GiftCard
     end
   end
 end
-
-class Customer
-  attr_accessor :name
-  def initialize(name)
-    @name = name
-    @gift_card = nil
-  end
-  def 
-  
