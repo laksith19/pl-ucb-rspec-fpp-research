@@ -1,14 +1,14 @@
 class Customer
-  attr_accessor :name
+  attr_accessor :name, :gift_card
   def initialize(name, gift_card=nil)
     @gift_card = gift_card
     @name = name
   end
   def pay(amount)
-    if @gift_card.withdraw(amount)
-      return true
+    if gift_card.withdraw(amount)
+      self.notify("payment successful")
     else
-      self.send_email(@gift_card.error)
+      self.notify("purchase cannot be completed")
     end
   end
 end

@@ -15,6 +15,10 @@ static code displayed on the screen, and they develop new code in a
 vertically-laid-out FPP panel that is correctly inlined/interleaved
 with that static code.
 
+This assignment is an "on ramp" to CHIPS 8.5, which has other problems
+of its own that need addressing but jumps right into writing tests.  A
+research question is whether this on-ramp actually helps students.
+
 ## Reference SUT and solution - will not be part of the student-visible scaffolding:
 
 * [system under test](questions/giftcard-example/gift_card.rb)
@@ -175,4 +179,41 @@ executed before _every test in that group_.  This is the refactor
 phase of "red-green-refactor", in which examples sharing common code
 are grouped together and that common code is extracted and DRY'd out.
 
-# 4. 
+# 4. Testing customer while stubbing gift card
+
+Take a look at `customer.rb` and the `#pay` method, which is the
+subject of the next set of tests that you will construct in FPP#4.
+
+The new challenge in testing
+`#pay` is that it calls an instance method of another class
+(`GiftCard#withdraw`).  In this case we know all about the behavior of
+that method, and it's fairly simple.  But if
+don't know the details of how it works, or even worse if it's
+temporarily broken, we don't want our tests to fail just because
+`#withdraw` is failing.  So we use _test doubles_ to isolate the
+`Customer` tests from the behavior of `GiftCard`.
+
+If you look at `Customer#pay`, the only behavior we really care about
+regarding `#withdraw` is whether it returns a truthy or falsy value,
+since that determines what happens next.  FPP#4 guides you through
+building a single test case in which we construct a _test double_ for
+a gift card.  The double is an object that has no built-in behaviors,
+so it must be given just enough behavior to be useful
+for this test case: we use `allow` to say "If the double gets a call
+to `withdraw`, it should just return true".  Similarly, if `#pay` is
+working correctly, the result of a successful withdrawal should be a
+call to `Customer#notify` with a happy message.  Note that in this
+case, `Customer#notify` _hasn't even been implemented_!  By saying
+that we expect to receive a call to it with a particular argument, we
+basically "short-circuit" the real method call.  This further isolates
+our test case from other methods, even those in `Customer` itself.
+
+# 5. Using the double to also test failed purchases
+
+Finally, for FPP#5, we use the same double, but this time we instruct it to
+always return a falsy value so we can test the other code path in
+`#pay`.  Since setting up the double (and the `Customer` instance) are
+common to both test cases, we move them into a `before` block as we
+did with `GiftCard`, and group the related examples and their
+before-block in a `describe`.
+
