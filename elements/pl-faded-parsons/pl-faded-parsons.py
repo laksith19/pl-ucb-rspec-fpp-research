@@ -77,52 +77,6 @@ def render_question_panel(element_html, data):
         post_text = get_child_text_by_tag(element, "post-text")
 
         lang = pl.get_string_attrib(element, "language", None)
-        def format_code(raw_code: str) -> str:
-            # this method's code is shamelessly ripped from the code for the `pl-code` element as 
-            #   of 16 Aug 2022
-            code = raw_code[:]
-            code = code.rstrip()
-
-            if lang is not None:
-                lexer_class = pygments.lexers.find_lexer_class(lang)
-                if lexer_class is not None:
-                    # Instantiate the class if we found it
-                    lexer = lexer_class()
-                else:
-                    try:
-                        # Search by language aliases
-                        # This throws an Exception if it's not found, and returns an instance if found.
-                        lexer = pygments.lexers.get_lexer_by_name(lang)
-                    except pygments.util.ClassNotFound:
-                        lexer = None
-            else:
-                class NoHighlightingLexer(pygments.lexer.Lexer):
-                    """
-                    Dummy lexer for when syntax highlighting is not wanted, but we still
-                    want to run it through the highlighter for styling and code escaping.
-                    """
-                    def __init__(self, **options):
-                        pygments.lexer.Lexer.__init__(self, **options)
-                        self.compress = options.get('compress', '')
-
-                    def get_tokens_unprocessed(self, text):
-                        return [(0, pygments.token.Token.Text, text)]
-                
-                lexer = NoHighlightingLexer()
-
-            formatter = pygments.formatters.HtmlFormatter(
-                style="friendly",
-                cssclass="mb-2 rounded",
-                prestyles="padding: 0.5rem; margin-bottom: 0px",
-                noclasses=True
-            )
-
-            return pygments.highlight(html.unescape(code), lexer, formatter)
-
-        # if pre_text != "":
-        #     pre_text = format_code(pre_text)
-        # if post_text != "":
-        #     post_text = format_code(post_text)
 
         if pre_text[-1] == "\n":
             pre_text = pre_text[:-1]
@@ -190,7 +144,7 @@ def parse(element_html, data):
     # `element` is now an XML data structure - see docs for LXML library at lxml.de
     
     # only Python problems are allowed right now (lang MUST be "py")
-    lang = pl.get_string_attrib(element, 'language')
+    # lang = pl.get_string_attrib(element, 'language') # TODO: commenting is a stop gap for the pilot study, find a better solution
 
     # TBD do error checking here for other attribute values....
     # set data['format_errors']['elt'] to an error message indicating an error with the
