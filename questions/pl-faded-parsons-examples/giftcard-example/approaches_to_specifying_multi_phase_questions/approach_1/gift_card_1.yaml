@@ -28,19 +28,19 @@ solution:
     end
 mutations:
   var_1:
-    funcs.rb: |
+    giftcard.rb: |
       4c4
       <     if @balance < 0
       ---
       >     if @balance >= 0
   var_2:
-    funcs.rb: |
+    giftcard.rb: |
       7c7
       <     @balance = balance
       ---
       >     @balance = -balance
   var_3:
-    funcs.rb: |
+    giftcard.rb: |
       8c8
       <     @error = nil
       ---

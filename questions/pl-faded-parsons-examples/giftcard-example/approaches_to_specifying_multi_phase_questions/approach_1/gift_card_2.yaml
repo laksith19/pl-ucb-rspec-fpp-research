@@ -51,19 +51,19 @@ solution:
     end
 mutations:
   var_1:
-    funcs.rb: |
+    giftcard.rb: |
       11c11
       <     if @balance >= amount
       ---
       >     if @balance < amount
   var_2:
-    funcs.rb: |
+    giftcard.rb: |
       12c12
       <       @balance -= amount
       ---
       >       @balance += amount
   var_3:
-    funcs.rb: |
+    giftcard.rb: |
       12c12
       <       @balance -= amount
       ---
