@@ -78,10 +78,10 @@ def render_question_panel(element_html, data):
 
         lang = pl.get_string_attrib(element, "language", None)
 
-        if pre_text[-1] == "\n":
+        while pre_text[-1] == "\n":
             pre_text = pre_text[:-1]
-        if post_text[-1] == '\n':
-            post_text = post_text[:-1]
+        while post_text[0] == '\n':
+            post_text = post_text[1:]
             
         html_params.update({
             "vertical" : {
