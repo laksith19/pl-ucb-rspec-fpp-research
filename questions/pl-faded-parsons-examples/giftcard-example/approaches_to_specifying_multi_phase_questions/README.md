@@ -1,5 +1,7 @@
 # How to specify multi-phase questions
 
+EDIT: We are proceeding with approach 1. That is to say that approach 1 works with `rspec-questionwriter`.
+
 I sought to find out what the most ergonomic way for an instructor to provide the necessary question code to create a multi-stage question. I attempted 3 approaches: 
 1) the instructor creates a new question in a format very similar to before, where each question will have a self-contained delimination of lines provided as starting code along with possibly duplicate metadata about the question. (`approach_1/gift_card_*.yaml`)
     - Pros: 
@@ -31,4 +33,3 @@ I sought to find out what the most ergonomic way for an instructor to provide th
         - The instructor-facing representation of the code can become very difficult to follow, especially in terms of how the student would see it
             - this can be solved technically, see `approach_3/display_phases.py`
         - The instructor must be very careful in annotating each line to generate the 
-        

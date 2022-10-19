@@ -59,20 +59,22 @@ def render_question_panel(element_html, data):
         "answers_name": answers_name,
     }
 
-    if vertical_format: 
-        def get_child_text_by_tag(element, tag: str) -> str:
-            """get the innerHTML of the first child of `element` that has the tag `tag`
-            default value is empty string"""
-            return next( 
-                (   elem.text 
-                    for elem in element 
-                    if elem.tag == tag  ), 
-                ""
-            )
+    def get_child_text_by_tag(element, tag: str) -> str:
+        """get the innerHTML of the first child of `element` that has the tag `tag`
+        default value is empty string"""
+        return next( 
+            (   elem.text 
+                for elem in element 
+                if elem.tag == tag  ), 
+            ""
+        )
+    
+    code_lines = get_child_text_by_tag(element, "code-lines")
 
+    if vertical_format: 
+        
         pre_text = get_child_text_by_tag(element, "pre-text")
         post_text = get_child_text_by_tag(element, "post-text")
-        code_lines = get_child_text_by_tag(element, "code-lines")
 
         lang = pl.get_string_attrib(element, "language", None)
         def format_code(raw_code: str) -> str:
@@ -117,21 +119,36 @@ def render_question_panel(element_html, data):
 
             return pygments.highlight(html.unescape(code), lexer, formatter)
 
-        if pre_text != "":
-            pre_text = format_code(pre_text)
-        if post_text != "":
-            post_text = format_code(post_text)
-        if code_lines == "":
-            html_params.update({ 
-                "code_lines" : read_file_lines(data, QUESTION_CODE_FILE) 
-            })
+        # if pre_text != "":
+        #     pre_text = format_code(pre_text)
+        # if post_text != "":
+        #     post_text = format_code(post_text)
 
+        if pre_text[-1] == "\n":
+            pre_text = pre_text[:-1]
+        if post_text[-1] == '\n':
+            post_text = post_text[:-1]
+            
         html_params.update({
             "vertical" : {
                 "pre_text" : pre_text,
                 "post_text" : post_text,
-                "answers_name" : answers_name
+                "answers_name" : answers_name,
             },
+        })
+
+        if lang is not None:
+            html_params["vertical"].update({
+                "language" : f"language=\"lang\""
+            })
+    
+    if code_lines == "":
+        html_params.update({ 
+            "code_lines" : read_file_lines(data, QUESTION_CODE_FILE) 
+        })
+    else:
+        html_params.update({
+            "code_lines" : code_lines
         })
 
     with open('pl-faded-parsons-question.mustache', 'r') as f:

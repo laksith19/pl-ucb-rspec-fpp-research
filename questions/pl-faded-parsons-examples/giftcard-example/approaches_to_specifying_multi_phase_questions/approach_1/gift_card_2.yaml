@@ -2,22 +2,22 @@ submit_to: spec/gift_card_spec.rb
 prompt: |
   Your app manages online gift cards for a soon-to-be-major e-tailer.
   Customers can use the app to place orders using their card
-  balance. 
+  balance. <br /><br />
 
   We have classes that model the GiftCard and the Customer.  First you
-  will write tests for the GiftCard class, to verify that:
+  will write tests for the GiftCard class, to verify that: <br /><br />
 
-  * a GiftCard when first created has a non-negative cash balance
+  * a GiftCard when first created has a non-negative cash balance <br />
   * a withdrawal when there is enough cash returns success, and changes
-  the card balance
-  * a withdrawal when there is not enough cash returns failure, provides
-  an error message explaining the failure, and does not change the card balance.
+  the card balance <br />
+  * a withdrawal when there is not enough cash returns failure, provides 
+  an error message explaining the failure, and does not change the card balance. <br /><br />
   
   The provided code before the submission box is semantically equivalent to the 
   code you wrote previously, but take note that we have chosen to separate it 
   logically by putting it into a `describe` block.
-
-solution:
+  
+solution: 
   pre: |
     describe GiftCard do
       describe 'creating' do
@@ -46,10 +46,11 @@ solution:
           @result = @gift_card.withdraw(15)
           expect(@gift_card.?error?).to be_empty
         end
-  post: |
+  post: |+2
       end
     end
 mutations:
+<<<<<<< HEAD
   var_1:
     giftcard.rb: |
       11c11
@@ -68,3 +69,5 @@ mutations:
       <       @balance -= amount
       ---
       >       @error = 'not empty'
+=======
+>>>>>>> b2276ba (yaml files now compatible with rspec-questionwriter)
