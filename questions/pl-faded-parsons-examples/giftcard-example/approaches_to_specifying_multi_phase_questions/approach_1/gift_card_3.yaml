@@ -46,7 +46,6 @@ solution:
       end
     end
 mutations:
-<<<<<<< HEAD
   var_1:
     giftcard.rb: |
       11c11
@@ -65,5 +64,3 @@ mutations:
       <       @balance -= amount
       ---
       >       @error = 'not empty'
-=======
->>>>>>> b2276ba (yaml files now compatible with rspec-questionwriter)
