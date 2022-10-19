@@ -31,16 +31,16 @@ solution:
   lines: |
         before(:each) do #given0
           @gift_card = GiftCard.new(20)
-          @result = @gift_card.withdraw(15)
+          @result = @gift_card.?withdraw?(15)
         end
         it 'returns truthy value' do
-          expect(@result).to be_truthy
+          expect(@result).to ?be_truthy?
         end
         it 'changes the balance' do
-          expect(@gift_card.balance).to eq(5)
+          expect(@gift_card.?balance?).to eq(5)
         end
         it 'does not result in error message' do
-          expect(@gift_card.error).to be_empty
+          expect(@gift_card.?error?).to be_empty
         end
   post: | 
       end
@@ -48,13 +48,19 @@ solution:
 mutations:
   var_1:
     funcs.rb: |
-      3c3
-      <     
+      11c11
+      <     if @balance >= amount
       ---
-      >     
+      >     if @balance < amount
   var_2:
     funcs.rb: |
-      3c3
-      <     
+      12c12
+      <       @balance -= amount
       ---
-      >     
+      >       @balance += amount
+  var_3:
+    funcs.rb: |
+      12c12
+      <       @balance -= amount
+      ---
+      >       @error = 'not empty'
