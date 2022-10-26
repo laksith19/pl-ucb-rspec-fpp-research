@@ -1,4 +1,19 @@
-This is a copy of https://github.com/ace-lab/pl-ucb-csxxx used to develop FPP questions for software testing with rspec. 
+# A tip for putting code into pl-code elements
+
+Try the following in either qustion.html or the yaml file:
+
+```
+<pl-code language="ruby">
+<![CDATA[
+  if something < other || thing > 0
+    puts "<brackets are ok now>"
+    #  this comment is ok despite having </pl-code>
+    #  be careful to close the square braces correctly:
+]]>
+</pl-code>
+```
+
+
 
 # Starting PL with autograder support
 
