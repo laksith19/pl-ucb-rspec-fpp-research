@@ -110,8 +110,14 @@ def render_question_panel(element_html, data):
 
 def render_submission_panel(element_html, data):
     """Show student what they submitted"""
-    html_params = {}
-    pass
+    html_params = {
+        "code" : data['submitted_answers']['student-parsons-solution']
+    }
+    # raise Exception("submission issue")
+    # import code
+    # code.interact()
+    with open('pl-faded-parsons-submission.mustache', 'r') as f:
+        return chevron.render(f, html_params).strip()
 
 
 def render_answer_panel(element_html, data):
