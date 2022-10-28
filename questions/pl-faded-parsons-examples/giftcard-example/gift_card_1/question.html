@@ -1,0 +1,37 @@
+<!-- AUTO-GENERATED FILE -->
+<pl-question-panel>
+Your app manages online gift cards for a soon-to-be-major e-tailer.
+Customers can use the app to place orders using their card
+balance. <br /><br />
+
+We have classes that model the GiftCard and the Customer.  First you
+will write tests for the GiftCard class, to verify that: <br /><br />
+
+* a GiftCard when first created has a non-negative cash balance <br />
+* a withdrawal when there is enough cash returns success, and changes 
+the card balance <br />
+* a withdrawal when there is not enough cash returns failure, provides 
+an error message explaining the failure, and does not change the card balance. <br />
+
+</pl-question-panel>
+<!-- see README for where the various parts of question live -->
+
+<pl-faded-parsons format="vertical">
+<pre-text>
+describe GiftCard do
+
+</pre-text>
+<code-lines>
+  it 'fails with negative balance' do
+  expect { GiftCard.new(-1) }.to raise_error(!BLANK)
+  end
+  it 'succeeds with positive balance' do
+  gift_card = GiftCard.new(20)
+  !BLANK(gift_card.balance).to !BLANK(20)
+  end
+</code-lines>
+<post-text>
+end
+
+</post-text>
+</pl-faded-parsons>
