@@ -17,15 +17,53 @@ Try the following in either qustion.html or the yaml file:
 
 # Starting PL with autograder support
 
+The easiest way to setup a working environment across all platforms is using [Docker Compose](https://docs.docker.com/compose/). If you've used docker in the past you most likely need no further set-up. You can start PrairieLearn by running:
 ```
-export HOST_JOBS_DIR=/tmp/directory/for/autograder/jobqueue
-sudo docker run -it --rm \
+docker compose up
+``` 
+
+If you've not set up docker before or the above command is not found, follow the [install instructions](https://docs.docker.com/compose/install/) before starting the PrairieLearn instance. 
+
+<details>
+<summary>Advanced docker instructions</summary>
+<p>
+<p>
+It's highly recommended to use Docker Compose to start PrairieLearn as it works on Windows(powershell, wsl & git-bash), MacOS and Linux.
+If you prefer to not use Docker Compose, you can use these platform specific docker instructions. You'll still need to have [Docker](https://docs.docker.com/get-docker/) installed. 
+ 
+
+### For MacOS and Linux:
+
+
+```
+docker run -it --rm \
     -p 3000:3000 \
-    -v "$HOST_JOBS_DIR":"/jobs" \
+    -v "/tmp/directory/for/autograder/jobqueue":"/jobs" \
+    -e HOST_JOBS_DIR="/tmp/directory/for/autograder/jobqueue" \
     -v `pwd`:/course \
     -v /var/run/docker.sock:/var/run/docker.sock \
     prairielearn/prairielearn:latest
 ```
+
+
+### For Windows in a WSL2 Enviornment:
+
+```
+docker run -it --rm \
+    -p 3000:3000 \
+    -v "/tmp/directory/for/autograder/jobqueue":"/jobs" \
+    -e HOST_JOBS_DIR="/tmp/directory/for/autograder/jobqueue" \
+    -v `pwd`:/course \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    --add-host=host.docker.internal:172.17.0.1 \
+    prairielearn/prairielearn:latest
+```
+
+
+Note: This only works in a WSL2 environment, as docker in powershell has it's quirks. You can find more information about it in the 	[PrairieLearn docs](https://prairielearn.readthedocs.io/en/latest/externalGrading/#windows-errors-and-quirks).
+</details>
+
+
 # Thoughts on gradient of test writing
 
 ## Testing a pure leaf function (single expectation per spec)
