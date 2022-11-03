@@ -20,11 +20,10 @@ Try the following in either qustion.html or the yaml file:
 ### For MacOS and Linux:
 
 ```
-export HOST_JOBS_DIR=/tmp/directory/for/autograder/jobqueue
 docker run -it --rm \
     -p 3000:3000 \
     -v "$HOST_JOBS_DIR":"/jobs" \
-    -e HOST_JOBS_DIR="$HOST_JOBS_DIR" \
+    -e HOST_JOBS_DIR="/tmp/directory/for/autograder/jobqueue" \
     -v `pwd`:/course \
     -v /var/run/docker.sock:/var/run/docker.sock \
     prairielearn/prairielearn:latest
@@ -32,11 +31,10 @@ docker run -it --rm \
 ### For Windows in a WSL2 Enviornment:
 
 ```
-export HOST_JOBS_DIR=/tmp/directory/for/autograder/jobqueue
 docker run -it --rm \
     -p 3000:3000 \
     -v "$HOST_JOBS_DIR":"/jobs" \
-    -e HOST_JOBS_DIR="$HOST_JOBS_DIR" \
+    -e HOST_JOBS_DIR="/tmp/directory/for/autograder/jobqueue" \
     -v `pwd`:/course \
     -v /var/run/docker.sock:/var/run/docker.sock \
     --add-host=host.docker.internal:172.17.0.1 \
