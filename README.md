@@ -27,6 +27,7 @@ If you've not set up docker before or the above command is not found, follow the
 <details>
 <summary>Advanced docker instructions</summary>
 <p>
+<p>
 It's highly recommended to use Docker Compose to start PrairieLearn as it works on Windows(powershell, wsl & git-bash), MacOS and Linux.
 If you prefer to not use Docker Compose, you can use these platform specific docker instructions. You'll still need to have [Docker](https://docs.docker.com/get-docker/) installed. 
  
