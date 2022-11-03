@@ -17,6 +17,8 @@ Try the following in either qustion.html or the yaml file:
 
 # Starting PL with autograder support
 
+### For MacOS and Linux:
+
 ```
 export HOST_JOBS_DIR=/tmp/directory/for/autograder/jobqueue
 docker run -it --rm \
@@ -25,6 +27,19 @@ docker run -it --rm \
     -e HOST_JOBS_DIR="$HOST_JOBS_DIR" \
     -v `pwd`:/course \
     -v /var/run/docker.sock:/var/run/docker.sock \
+    prairielearn/prairielearn:latest
+```
+### For Windows in a WSL2 Enviornment:
+
+```
+export HOST_JOBS_DIR=/tmp/directory/for/autograder/jobqueue
+docker run -it --rm \
+    -p 3000:3000 \
+    -v "$HOST_JOBS_DIR":"/jobs" \
+    -e HOST_JOBS_DIR="$HOST_JOBS_DIR" \
+    -v `pwd`:/course \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    --add-host=host.docker.internal:172.17.0.1 \
     prairielearn/prairielearn:latest
 ```
 # Thoughts on gradient of test writing
