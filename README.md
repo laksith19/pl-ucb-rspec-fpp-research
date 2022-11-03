@@ -61,6 +61,8 @@ docker run -it --rm \
 
 Note: This only works in a WSL2 environment, as docker in powershell has it's quirks. You can find more information about it in the 	[PrairieLearn docs](https://prairielearn.readthedocs.io/en/latest/externalGrading/#windows-errors-and-quirks).
 </details>
+
+
 # Thoughts on gradient of test writing
 
 ## Testing a pure leaf function (single expectation per spec)
